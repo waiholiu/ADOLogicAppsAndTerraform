@@ -90,8 +90,6 @@ stages:
   jobs:
   - deployment: deploy_logicapp_resources
     displayName: Deploy Logic App
-    pool:
-      vmImage: ubuntu-18.04
     environment: dev_logicapp
     variables:
       deploymentMode: 'Incremental'
