@@ -29,60 +29,60 @@ variables:
   workingDirectory: '$(System.DefaultWorkingDirectory)/'
 
 stages:
-- stage: BuildInfra
-  jobs:
-  - job: RunTerraformfile
-    steps:
+# - stage: BuildInfra
+#   jobs:
+#   - job: RunTerraformfile
+#     steps:
     
-    - task: TerraformInstaller@1
-      inputs:
-        terraformVersion: 'latest'
-    - task: TerraformTaskV4@4
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/infra'
-        backendServiceArm: 'Visual Studio Enterprise (MSFT) (24a407c8-9f78-441c-aa95-31a4e273e9a1)'
-        backendAzureRmResourceGroupName: 'tfstate'
-        backendAzureRmStorageAccountName: 'tfstate12909'
-        backendAzureRmContainerName: 'tfstate'
-        backendAzureRmKey: 'terraform.tfstate'
-    - task: TerraformTaskV4@4
-      inputs:
-        provider: 'azurerm'
-        command: 'apply'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/infra'
-        environmentServiceNameAzureRM: 'Visual Studio Enterprise (MSFT) (24a407c8-9f78-441c-aa95-31a4e273e9a1)'
+#     - task: TerraformInstaller@1
+#       inputs:
+#         terraformVersion: 'latest'
+#     - task: TerraformTaskV4@4
+#       inputs:
+#         provider: 'azurerm'
+#         command: 'init'
+#         workingDirectory: '$(System.DefaultWorkingDirectory)/infra'
+#         backendServiceArm: 'Visual Studio Enterprise (MSFT) (24a407c8-9f78-441c-aa95-31a4e273e9a1)'
+#         backendAzureRmResourceGroupName: 'tfstate'
+#         backendAzureRmStorageAccountName: 'tfstate12909'
+#         backendAzureRmContainerName: 'tfstate'
+#         backendAzureRmKey: 'terraform.tfstate'
+#     - task: TerraformTaskV4@4
+#       inputs:
+#         provider: 'azurerm'
+#         command: 'apply'
+#         workingDirectory: '$(System.DefaultWorkingDirectory)/infra'
+#         environmentServiceNameAzureRM: 'Visual Studio Enterprise (MSFT) (24a407c8-9f78-441c-aa95-31a4e273e9a1)'
 
 
-- stage: Build
-  jobs:
-  - job: logic_app_build
-    displayName: 'Build and publish logic app'
-    steps:
-    - task: CopyFiles@2
-      displayName: 'Create project folder'
-      inputs:
-        SourceFolder: '$(System.DefaultWorkingDirectory)'
-        Contents: |
-          logicapp/**
-        TargetFolder: 'project_output'
+# - stage: Build
+#   jobs:
+#   - job: logic_app_build
+#     displayName: 'Build and publish logic app'
+#     steps:
+#     - task: CopyFiles@2
+#       displayName: 'Create project folder'
+#       inputs:
+#         SourceFolder: '$(System.DefaultWorkingDirectory)'
+#         Contents: |
+#           logicapp/**
+#         TargetFolder: 'project_output'
 
-    - task: ArchiveFiles@2
-      displayName: 'Create project zip'
-      inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/project_output/logicapp'
-        includeRootFolder: false
-        archiveType: 'zip'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-        replaceExistingArchive: true
+#     - task: ArchiveFiles@2
+#       displayName: 'Create project zip'
+#       inputs:
+#         rootFolderOrFile: '$(System.DefaultWorkingDirectory)/project_output/logicapp'
+#         includeRootFolder: false
+#         archiveType: 'zip'
+#         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+#         replaceExistingArchive: true
 
-    - task: PublishPipelineArtifact@1
-      displayName: 'Publish project zip artifact'
-      inputs:
-        targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-        artifact: 'drop'
-        publishLocation: 'pipeline'
+#     - task: PublishPipelineArtifact@1
+#       displayName: 'Publish project zip artifact'
+#       inputs:
+#         targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+#         artifact: 'drop'
+#         publishLocation: 'pipeline'
 
 
 - stage: deploy_to_DEV
@@ -100,6 +100,7 @@ stages:
             inputs:
               azureSubscription: 'Visual Studio Enterprise (MSFT) (24a407c8-9f78-441c-aa95-31a4e273e9a1)'
               appType: 'functionApp'
-              appName: 'todellogicappsasp'
+              # appName: 'todellogicappsasp'
+              appName: 'todelcreatefromportal'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
               deploymentMethod: 'zipDeploy'
