@@ -100,7 +100,7 @@ stages:
             inputs:
               azureSubscription: 'Visual Studio Enterprise (MSFT) (24a407c8-9f78-441c-aa95-31a4e273e9a1)'
               appType: 'functionApp'
-              # appName: 'todellogicappsasp'
-              appName: 'todelcreatefromportal'
+              appName: 'todellogicappsasp'
+              # appName: 'todelcreatefromportal'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
               deploymentMethod: 'zipDeploy'
