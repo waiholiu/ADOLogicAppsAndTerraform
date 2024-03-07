@@ -54,6 +54,6 @@ resource "azurerm_logic_app_standard" "todellogicappsasp" {
     "FUNCTIONS_WORKER_RUNTIME"     = "node"
     "WEBSITE_NODE_DEFAULT_VERSION" = "~18"
      "WEBSITE_RUN_FROM_PACKAGE" = 1
-    "FUNCTIONS_EXTENSION_VERSION" = "~4"
+    # "FUNCTIONS_EXTENSION_VERSION" = "~4"
   }
 }
