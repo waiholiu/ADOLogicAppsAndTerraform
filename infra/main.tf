@@ -54,11 +54,11 @@ resource "azurerm_logic_app_standard" "todellogicappsasp" {
   app_service_plan_id        = azurerm_app_service_plan.todellogicappsasp.id
   storage_account_name       = azurerm_storage_account.todellogicappsstorageacc.name
   storage_account_access_key = azurerm_storage_account.todellogicappsstorageacc.primary_access_key
+  kind                       = "functionapp"
 
   app_settings = {
     "FUNCTIONS_WORKER_RUNTIME"     = "node"
     "WEBSITE_NODE_DEFAULT_VERSION" = "~18"
-     "WEBSITE_RUN_FROM_PACKAGE" = 1
-    "FUNCTIONS_EXTENSION_VERSION" = "~4"
+    "WEBSITE_RUN_FROM_PACKAGE" = 1
   }
 }
