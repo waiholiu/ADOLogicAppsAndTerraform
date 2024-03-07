@@ -63,15 +63,15 @@ stages:
     - task: CopyFiles@2
       displayName: 'Create project folder'
       inputs:
-        SourceFolder: '$(System.DefaultWorkingDirectory)/logicapp'
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
         Contents: |
-          logic/**
+          logicapp/**
         TargetFolder: 'project_output'
 
     - task: ArchiveFiles@2
       displayName: 'Create project zip'
       inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/project_output/logic'
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/project_output/logicapp'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
