@@ -34,19 +34,24 @@ resource "azurerm_storage_account" "todellogicappsstorageacc" {
   account_replication_type = "LRS"
 }
 
-resource "azurerm_service_plan" "todellogicappsasp" {
+resource "azurerm_app_service_plan" "todellogicappsasp" {
   name                = "todellogicappsasp"
-  resource_group_name = azurerm_resource_group.logic_app_rg.name
   location            = azurerm_resource_group.logic_app_rg.location
-  os_type             = "Windows"
-  sku_name            = "WS1"
+  resource_group_name = azurerm_resource_group.logic_app_rg.name
+  kind                = "elastic"
+
+
+  sku {
+    tier = "WorkflowStandard"
+    size = "WS1"
+  }
 }
 
 resource "azurerm_logic_app_standard" "todellogicappsasp" {
   name                       = "todellogicappsasp"
   location                   = azurerm_resource_group.logic_app_rg.location
   resource_group_name        = azurerm_resource_group.logic_app_rg.name
-  app_service_plan_id        = azurerm_service_plan.todellogicappsasp.id
+  app_service_plan_id        = azurerm_app_service_plan.todellogicappsasp.id
   storage_account_name       = azurerm_storage_account.todellogicappsstorageacc.name
   storage_account_access_key = azurerm_storage_account.todellogicappsstorageacc.primary_access_key
 
