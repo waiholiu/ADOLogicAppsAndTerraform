@@ -1,0 +1,9 @@
+{
+    "azureLogicAppsStandard.deploySubpath": "logicapp",
+    "azureLogicAppsStandard.projectLanguage": "JavaScript",
+    "azureLogicAppsStandard.projectRuntime": "~4",
+    "debug.internalConsoleOptions": "neverOpen",
+    "azureFunctions.suppressProject": true,
+    "azurite.location": "C:\\Users\\wailiu\\.azurelogicapps\\.azurite",
+    "terminal.integrated.defaultProfile.windows": "PowerShell"
+}
