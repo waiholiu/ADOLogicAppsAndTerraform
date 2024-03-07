@@ -81,5 +81,29 @@ stages:
       displayName: 'Publish project zip artifact'
       inputs:
         targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-        artifact: '$(logicAppCIArtifactName)'
+        artifact: 'logicapp'
         publishLocation: 'pipeline'
+
+
+- stage: deploy_to_DEV
+  displayName: 'DEV Deployment'
+  jobs:
+  - deployment: deploy_logicapp_resources
+    displayName: Deploy Logic App
+    pool:
+      vmImage: ubuntu-18.04
+    environment: dev_logicapp
+    variables:
+      deploymentMode: 'Incremental'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureFunctionApp@1
+            displayName: 'Deploy logic app workflows'
+            inputs:
+              azureSubscription: 'Visual Studio Enterprise (MSFT) (24a407c8-9f78-441c-aa95-31a4e273e9a1)'
+              appType: 'functionApp'
+              appName: 'todellogicappsasp'
+              package: '$(Pipeline.Workspace)/drop/logicapp/$(Build.BuildId).zip'
+              deploymentMethod: 'zipDeploy'
