@@ -55,34 +55,34 @@ stages:
 #         environmentServiceNameAzureRM: 'Visual Studio Enterprise (MSFT) (24a407c8-9f78-441c-aa95-31a4e273e9a1)'
 
 
-# - stage: Build
-#   jobs:
-#   - job: logic_app_build
-#     displayName: 'Build and publish logic app'
-#     steps:
-#     - task: CopyFiles@2
-#       displayName: 'Create project folder'
-#       inputs:
-#         SourceFolder: '$(System.DefaultWorkingDirectory)'
-#         Contents: |
-#           logicapp/**
-#         TargetFolder: 'project_output'
+- stage: Build
+  jobs:
+  - job: logic_app_build
+    displayName: 'Build and publish logic app'
+    steps:
+    - task: CopyFiles@2
+      displayName: 'Create project folder'
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: |
+          logicapp/**
+        TargetFolder: 'project_output'
 
-#     - task: ArchiveFiles@2
-#       displayName: 'Create project zip'
-#       inputs:
-#         rootFolderOrFile: '$(System.DefaultWorkingDirectory)/project_output/logicapp'
-#         includeRootFolder: false
-#         archiveType: 'zip'
-#         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-#         replaceExistingArchive: true
+    - task: ArchiveFiles@2
+      displayName: 'Create project zip'
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/project_output/logicapp'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        replaceExistingArchive: true
 
-#     - task: PublishPipelineArtifact@1
-#       displayName: 'Publish project zip artifact'
-#       inputs:
-#         targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-#         artifact: 'drop'
-#         publishLocation: 'pipeline'
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish project zip artifact'
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        artifact: 'drop'
+        publishLocation: 'pipeline'
 
 
 - stage: deploy_to_DEV
