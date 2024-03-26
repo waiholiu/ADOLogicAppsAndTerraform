@@ -22,20 +22,20 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "logic_app_rg" {
-  name     = "todellogicapps-rg"
+  name     = "todella-rg"
   location = "Australia East"
 }
 
-resource "azurerm_storage_account" "todellogicappsstorageacc" {
-  name                     = "todellogicappsstorageacc"
+resource "azurerm_storage_account" "todellastorageacc" {
+  name                     = "todellastorageacc"
   resource_group_name      = azurerm_resource_group.logic_app_rg.name
   location                 = azurerm_resource_group.logic_app_rg.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
 
-# resource "azurerm_app_service_plan" "todellogicappsasp" {
-#   name                = "todellogicappsasp"
+# resource "azurerm_app_service_plan" "todellaasp" {
+#   name                = "todellaasp"
 #   location            = azurerm_resource_group.logic_app_rg.location
 #   resource_group_name = azurerm_resource_group.logic_app_rg.name
 #   kind                = "elastic"
@@ -47,21 +47,21 @@ resource "azurerm_storage_account" "todellogicappsstorageacc" {
 #   }
 # }
 
-resource "azurerm_service_plan" "todellogicappsasp" {
-  name                = "todellogicappsasp"
+resource "azurerm_service_plan" "todellaasp" {
+  name                = "todellaasp"
   resource_group_name = azurerm_resource_group.logic_app_rg.name
   location            = azurerm_resource_group.logic_app_rg.location
   os_type             = "Windows"
   sku_name            = "WS1"
 }
 
-resource "azurerm_logic_app_standard" "todellogicappsasp" {
-  name                       = "todellogicappsasp"
+resource "azurerm_logic_app_standard" "todellaasp" {
+  name                       = "todellaasp"
   location                   = azurerm_resource_group.logic_app_rg.location
   resource_group_name        = azurerm_resource_group.logic_app_rg.name
-  app_service_plan_id        = azurerm_service_plan.todellogicappsasp.id
-  storage_account_name       = azurerm_storage_account.todellogicappsstorageacc.name
-  storage_account_access_key = azurerm_storage_account.todellogicappsstorageacc.primary_access_key
+  app_service_plan_id        = azurerm_service_plan.todellaasp.id
+  storage_account_name       = azurerm_storage_account.todellastorageacc.name
+  storage_account_access_key = azurerm_storage_account.todellastorageacc.primary_access_key
   version                    = "~4"
 
   app_settings = {
