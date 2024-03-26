@@ -100,7 +100,7 @@ stages:
             inputs:
               azureSubscription: 'ME-MngEnv148807-wailiu-1(4de4de64-01ea-43ca-a65b-95435fc4e986)'
               appType: 'functionApp'
-              appName: 'todellogicappsasp'
+              appName: 'todellaasp'
               # appName: 'todelcreatefromportal'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
               deploymentMethod: 'zipDeploy'
