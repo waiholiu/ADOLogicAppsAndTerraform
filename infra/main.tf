@@ -89,12 +89,12 @@ resource "azurerm_storage_container" "files" {
   container_access_type = "private"
 }
 
-data "azurerm_builtin_role_definition" "blob_contributor" {
-  name = "Storage Blob Data Contributor"
-}
+# data "azurerm_builtin_role_definition" "blob_contributor" {
+#   name = "Storage Blob Data Contributor"
+# }
 
-resource "azurerm_role_assignment" "example" {
-  scope                = azurerm_storage_account.newstorageacc.id
-  role_definition_name = data.azurerm_builtin_role_definition.blob_contributor.name
-  principal_id         = azurerm_logic_app_standard.example.identity[0].principal_id
-}
+# resource "azurerm_role_assignment" "example" {
+#   scope                = azurerm_storage_account.newstorageacc.id
+#   role_definition_name = data.azurerm_builtin_role_definition.blob_contributor.name
+#   principal_id         = azurerm_logic_app_standard.example.identity[0].principal_id
+# }
