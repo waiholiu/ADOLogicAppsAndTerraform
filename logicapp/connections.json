@@ -1,3 +1,15 @@
 {
-  "managedApiConnections": {}
+  "managedApiConnections": {},
+  "serviceProviderConnections": {
+    "AzureBlob-1": {
+      "parameterValues": {
+        "connectionString": "@appsetting('AzureBlob_11_connectionString')"
+      },
+      "parameterSetName": "connectionString",
+      "serviceProvider": {
+        "id": "/serviceProviders/AzureBlob"
+      },
+      "displayName": "read-blob"
+    }
+  }
 }

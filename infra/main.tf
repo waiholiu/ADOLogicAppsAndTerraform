@@ -68,6 +68,10 @@ resource "azurerm_logic_app_standard" "todellaasp" {
     "FUNCTIONS_WORKER_RUNTIME"     = "node"
     "WEBSITE_NODE_DEFAULT_VERSION" = "~18"
   }
+
+  identity {
+    type = "SystemAssigned"
+  }
 }
 
 
@@ -83,4 +87,14 @@ resource "azurerm_storage_container" "files" {
   name                  = "files"
   storage_account_name  = azurerm_storage_account.newstorageacc.name
   container_access_type = "private"
+}
+
+data "azurerm_builtin_role_definition" "blob_contributor" {
+  name = "Storage Blob Data Contributor"
+}
+
+resource "azurerm_role_assignment" "example" {
+  scope                = azurerm_storage_account.newstorageacc.id
+  role_definition_name = data.azurerm_builtin_role_definition.blob_contributor.name
+  principal_id         = azurerm_logic_app_standard.example.identity[0].principal_id
 }

@@ -20,7 +20,26 @@
                 "kind": "Http",
                 "inputs": {
                     "statusCode": 200,
-                    "body": "It worked"
+                    "body": "It worked @{body('Read_blob_content')?['properties']?['contentMD5']}"
+                },
+                "runAfter": {
+                    "Read_blob_content": [
+                        "SUCCEEDED"
+                    ]
+                }
+            },
+            "Read_blob_content": {
+                "type": "ServiceProvider",
+                "inputs": {
+                    "parameters": {
+                        "containerName": "files",
+                        "blobName": "main.bicep"
+                    },
+                    "serviceProviderConfiguration": {
+                        "connectionName": "AzureBlob-1",
+                        "operationId": "readBlob",
+                        "serviceProviderId": "/serviceProviders/AzureBlob"
+                    }
                 },
                 "runAfter": {
                     "Initialize_variable": [
