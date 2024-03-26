@@ -42,17 +42,17 @@ stages:
         provider: 'azurerm'
         command: 'init'
         workingDirectory: '$(System.DefaultWorkingDirectory)/infra'
-        backendServiceArm: 'Visual Studio Enterprise (MSFT) (24a407c8-9f78-441c-aa95-31a4e273e9a1)'
+        backendServiceArm: 'ME-MngEnv148807-wailiu-1(4de4de64-01ea-43ca-a65b-95435fc4e986)'
         backendAzureRmResourceGroupName: 'tfstate'
-        backendAzureRmStorageAccountName: 'tfstate12909'
-        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmStorageAccountName: 'tfstateapimdemo'
+        backendAzureRmContainerName: 'tfstatelogicapps'
         backendAzureRmKey: 'terraform.tfstate'
     - task: TerraformTaskV4@4
       inputs:
         provider: 'azurerm'
         command: 'apply'
         workingDirectory: '$(System.DefaultWorkingDirectory)/infra'
-        environmentServiceNameAzureRM: 'Visual Studio Enterprise (MSFT) (24a407c8-9f78-441c-aa95-31a4e273e9a1)'
+        environmentServiceNameAzureRM: 'ME-MngEnv148807-wailiu-1(4de4de64-01ea-43ca-a65b-95435fc4e986)'
 
 
 - stage: Build
@@ -98,7 +98,7 @@ stages:
           - task: AzureFunctionApp@1
             displayName: 'Deploy logic app workflows'
             inputs:
-              azureSubscription: 'Visual Studio Enterprise (MSFT) (24a407c8-9f78-441c-aa95-31a4e273e9a1)'
+              azureSubscription: 'ME-MngEnv148807-wailiu-1(4de4de64-01ea-43ca-a65b-95435fc4e986)'
               appType: 'functionApp'
               appName: 'todellogicappsasp'
               # appName: 'todelcreatefromportal'
