@@ -7,7 +7,7 @@
                 "inputs": {
                     "variables": [
                         {
-                            "name": "fsdaasd",
+                            "name": "fsdaasd1",
                             "type": "boolean",
                             "value": false
                         }
