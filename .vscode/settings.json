@@ -5,5 +5,11 @@
     "debug.internalConsoleOptions": "neverOpen",
     "azureFunctions.suppressProject": true,
     "azurite.location": "C:\\Users\\wailiu\\.azurelogicapps\\.azurite",
-    "terminal.integrated.defaultProfile.windows": "PowerShell"
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "terminal.integrated.env.windows": {
+        "PATH": "C:\\Users\\wailiu\\.azurelogicapps\\dependencies\\DotNetSDK;${env:PATH}"
+    },
+    "omnisharp.dotNetCliPaths": [
+        "C:\\Users\\wailiu\\.azurelogicapps\\dependencies\\DotNetSDK"
+    ]
 }
