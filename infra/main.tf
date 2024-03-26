@@ -9,8 +9,8 @@ terraform {
 
   backend "azurerm" {
     resource_group_name  = "tfstate"
-    storage_account_name = "tfstate12909"
-    container_name       = "tfstate"
+    storage_account_name = "tfstateapidemo"
+    container_name       = "tfstatelogicapps"
     key                  = "terraform.tfstate"
   }
 
@@ -68,4 +68,19 @@ resource "azurerm_logic_app_standard" "todellaasp" {
     "FUNCTIONS_WORKER_RUNTIME"     = "node"
     "WEBSITE_NODE_DEFAULT_VERSION" = "~18"
   }
+}
+
+
+resource "azurerm_storage_account" "newstorageacc" {
+  name                     = "todellareadsa"
+  resource_group_name      = azurerm_resource_group.logic_app_rg.name
+  location                 = azurerm_resource_group.logic_app_rg.location
+  account_tier             = "Standard"
+  account_replication_type = "GRS"
+}
+
+resource "azurerm_storage_container" "files" {
+  name                  = "files"
+  storage_account_name  = azurerm_storage_account.newstorageacc.name
+  container_access_type = "private"
 }
